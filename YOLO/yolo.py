@@ -82,7 +82,7 @@ def detection(target, cnts, boxes, confs, class_ids, img):
 			xx, yy = cnts[i]
 			label = str(classes[class_ids[i]])
 			if label == "person" and target == "person":
-				cv2.rectangle(img, (x,y), (x+w, y+h), (255, 255, 0), 1)
+				cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255, 255), 1)
 				cv2.putText(img, "PERSON", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
 				cv2.circle(img, (int(xx), int(yy + (h/2))), 3, (0, 255, 255), 4)
 			elif label == "sports ball" and target == "ball":

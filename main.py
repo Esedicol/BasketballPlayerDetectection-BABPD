@@ -101,7 +101,7 @@ def detect(video_path):
                     target_b = "ball"
                     yolo.yolo_detection(target_b, frame)
                    
-                detect ball using the model I built
+                # detect ball using the model I built
                 if prepare_ball(detected_object) == "basketball" :
 
                     Append (x,y) coordinates and plot them later
