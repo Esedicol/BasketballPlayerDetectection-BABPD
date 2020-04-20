@@ -4,8 +4,8 @@ import pandas as pd
 import cv2
 
 fig, ax = plt.subplots()
-img = cv2.imread('/Users/esedicol/Desktop/Basketball-Shot-Detectection/images/court_extraction2.png')
-img  = cv2.resize(img, (500,400))
+img = cv2.imread('/Users/esedicol/Desktop/BasketballShotDetectection/UTIL_SCRIPTS/b1.png')
+img  = cv2.resize(img, (600,400))
 ax.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 
 

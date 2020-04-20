@@ -54,47 +54,56 @@ def xy_personCoordinate(frame):
 
 
 def xy_ballCoordinate(frame):
-	x_cord = 0
-	y_cord = 0
-	height, width, channels = frame.shape
-	blob = cv2.dnn.blobFromImage(frame, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
-	net.setInput(blob)
-	outputs = net.forward(output_layers)
-	centers, boxes, confs, class_ids = box_dimensions(outputs, height, width)
+    x_cord = 0
+    y_cord = 0
+    height, width, channels = frame.shape
+    blob = cv2.dnn.blobFromImage(frame, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
+    net.setInput(blob)
+    outputs = net.forward(output_layers)
+    centers, boxes, confs, class_ids = box_dimensions(outputs, height, width)
 
-	indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
-	for i in range(len(boxes)):
-		if i in indexes:
-			x, y, w, h = boxes[i]
-			xx, yy = centers[i]
-			label = str(classes[class_ids[i]])
-			if label == "sports ball":
-				x_cord = xx
-				y_cord = yy
-	return x_cord, y_cord
+    indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
+    for i in range(len(boxes)):
+        if i in indexes:
+            x, y, w, h = boxes[i]
+            xx, yy = centers[i]
+            label = str(classes[class_ids[i]])
 
-			
+            if label == "sports ball":
+                x_cord = xx
+                y_cord = yy
+    return x_cord, y_cord
+
 def detection(target, cnts, boxes, confs, class_ids, img): 
-	indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
-	for i in range(len(boxes)):
-		if i in indexes:
-			x, y, w, h = boxes[i]
-			xx, yy = cnts[i]
-			label = str(classes[class_ids[i]])
-			if label == "person" and target == "person":
-				cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255, 255), 1)
-				cv2.putText(img, "PERSON", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
-				cv2.circle(img, (int(xx), int(yy + (h/2))), 3, (0, 255, 255), 4)
-			elif label == "sports ball" and target == "ball":
-				cv2.rectangle(img, (x - 20, y - 20), ((x + 20) + w, (y + 20) + h), (255,0,0), 2)
-				cv2.putText(img, "BASKETBALL", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
-				cv2.circle(img, (int(xx), int(yy)), 2, (0, 0, 255), 1)
+    ball_detected = False
+    indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
+
+    for i in range(len(boxes)):
+        if i in indexes:
+            x, y, w, h = boxes[i]
+            xx, yy = cnts[i]
+            label = str(classes[class_ids[i]])
+            if label == "person" and target == "person":
+                cv2.rectangle(img, (x,y), (x+w, y+h), (0, 0, 255), 1)
+                cv2.putText(img, "PERSON", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
+                cv2.circle(img, (int(xx), int(yy + (h/2))), 3, (0, 255, 255), 4)
+            elif label == "sports ball" and target == "ball":
+                cv2.rectangle(img, (x - 20, y - 20), ((x + 20) + w, (y + 20) + h), (255,0,0), 2)
+                cv2.putText(img, "BASKETBALL", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
+                cv2.circle(img, (int(xx), int(yy)), 5, (100, 50, 255), 2)
+                ball_detected = True
+
+    return img, ball_detected
+
 
 
 def yolo_detection(target, frame):
-	height, width, channels = frame.shape
-	blob = cv2.dnn.blobFromImage(frame, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
-	net.setInput(blob)
-	outputs = net.forward(output_layers)
-	centers, boxes, confs, class_ids = box_dimensions(outputs, height, width)
-	detection(target, centers, boxes, confs, class_ids, frame)
+    ball_detected = False
+    height, width, channels = frame.shape
+    blob = cv2.dnn.blobFromImage(frame, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
+    net.setInput(blob)
+    outputs = net.forward(output_layers)
+    centers, boxes, confs, class_ids = box_dimensions(outputs, height, width)
+    frame, ball_detected = detection(target, centers, boxes, confs, class_ids, frame)
+
+    return frame, ball_detected

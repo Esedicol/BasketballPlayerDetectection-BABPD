@@ -104,10 +104,9 @@ def detect(video_path):
                 # detect ball using the model I built
                 if prepare_ball(detected_object) == "basketball" :
 
-                    Append (x,y) coordinates and plot them later
+                    # Append (x,y) coordinates and plot them later
                     shot_xy_coordinates.append((x,y))
-                    np.savetxt('/Users/esedicol/Desktop/Desktop/Basketball-Shot-Detectection/COORDINATES/shot_xy_coord.txt', shot_xy_coordinates, fmt='%d')
-
+                    
                     # Draw the circle and centroid on the frame,
                     cv2.circle(frame, (int(x), int(y)), int(radius),(0, 255, 255), 2)
                     cv2.circle(frame, (int(x), int(y)), 1, (0, 0, 255), 2)
