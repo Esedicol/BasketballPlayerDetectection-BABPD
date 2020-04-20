@@ -76,6 +76,8 @@ def xy_ballCoordinate(frame):
 
 def detection(target, cnts, boxes, confs, class_ids, img): 
     ball_detected = False
+    p_x = 0
+    p_y = 0
     indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
 
     for i in range(len(boxes)):
@@ -86,16 +88,17 @@ def detection(target, cnts, boxes, confs, class_ids, img):
             if label == "person" and target == "person":
                 cv2.rectangle(img, (x,y), (x+w, y+h), (0, 0, 255), 1)
                 cv2.putText(img, "PERSON", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
+#                 cv2.putText(img, f'(x={xx}, y={yy})', (int(xx - 15), int(yy + (h/2) + 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (25, 255, 25), 1 )
                 cv2.circle(img, (int(xx), int(yy + (h/2))), 3, (0, 255, 255), 4)
+                p_x = xx
+                p_y = yy
             elif label == "sports ball" and target == "ball":
                 cv2.rectangle(img, (x - 20, y - 20), ((x + 20) + w, (y + 20) + h), (255,0,0), 2)
                 cv2.putText(img, "BASKETBALL", (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 0), 1 )
                 cv2.circle(img, (int(xx), int(yy)), 5, (100, 50, 255), 2)
                 ball_detected = True
 
-    return img, ball_detected
-
-
+    return img, ball_detected, p_x, p_y, h
 
 def yolo_detection(target, frame):
     ball_detected = False
@@ -104,6 +107,6 @@ def yolo_detection(target, frame):
     net.setInput(blob)
     outputs = net.forward(output_layers)
     centers, boxes, confs, class_ids = box_dimensions(outputs, height, width)
-    frame, ball_detected = detection(target, centers, boxes, confs, class_ids, frame)
+    frame, ball_detected, xx, yy, h = detection(target, centers, boxes, confs, class_ids, frame)
 
-    return frame, ball_detected
+    return frame, ball_detected, xx, yy, h
