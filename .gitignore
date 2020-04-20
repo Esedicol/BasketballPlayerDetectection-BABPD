@@ -4,3 +4,8 @@ __pycache__/
 .DS_Store
 .git
 YOLO/yolov3.weights
+package-lock.json
+node_modules/python-shell
+.gitignorey
+.gitignore.swp
+.gitignore
