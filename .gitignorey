@@ -1,9 +1,0 @@
-__pycache__/
-.ipynb_checkpoints
-.python-version
-.DS_Store
-.git
-YOLO/yolov3.weights
-
-
-
