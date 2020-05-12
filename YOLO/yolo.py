@@ -76,6 +76,7 @@ def xy_ballCoordinate(frame):
 
 def detection(target, cnts, boxes, confs, class_ids, img): 
     ball_detected = False
+    h= 0
     p_x = 0
     p_y = 0
     indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
@@ -102,7 +103,7 @@ def detection(target, cnts, boxes, confs, class_ids, img):
 
 def yolo_detection(target, frame):
     ball_detected = False
-    height, width, channels = frame.shape
+    height, width, _ = frame.shape
     blob = cv2.dnn.blobFromImage(frame, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
     net.setInput(blob)
     outputs = net.forward(output_layers)
