@@ -5,9 +5,9 @@ idea of data driven decisions to win games.
 
 For my final year project I have decided to create an computer vision application based on the sport of Basketball. The following application will take in a recorded video of a player shooting a basktball as its input. Using computer vision methods in python I aim to display player position on a 2D court and display total count of make and missed shots on a score board.
 
-#### Project Explanation/ Demo: <a href="https://www.youtube.com/watch?v=aW3IlB3nBoI">https://www.youtube.com/watch?v=aW3IlB3nBoI</a>
-#### Project Poster: <a href="https://github.com/Esedicol/BasketballPlayerDetectection-BABPD/blob/master/FYP_DOCUMENTS/POSTER.pdf">/FYP_DOCUMENTS/POSTER.pdf</a>
-#### Project Report: <a href="https://github.com/Esedicol/BasketballPlayerDetectection-BABPD/blob/master/FYP_DOCUMENTS/KCOMP_20072377_FinalReport.pdf">/FYP_DOCUMENTS/KCOMP_20072377_FinalReport.pdf</a>
+#### Project Explanation/ Demo: <p><a href="https://www.youtube.com/watch?v=aW3IlB3nBoI">https://www.youtube.com/watch?v=aW3IlB3nBoI</a></p>
+#### Project Poster: <p><a href="https://github.com/Esedicol/BasketballPlayerDetectection-BABPD/blob/master/FYP_DOCUMENTS/POSTER.pdf">/FYP_DOCUMENTS/POSTER.pdf</a></p>
+#### Project Report: <p><a href="https://github.com/Esedicol/BasketballPlayerDetectection-BABPD/blob/master/FYP_DOCUMENTS/KCOMP_20072377_FinalReport.pdf">/FYP_DOCUMENTS/KCOMP_20072377_FinalReport.pdf</a></p>
 
 
 ## Ball Detection using OpenCV
